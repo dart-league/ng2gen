@@ -1,0 +1,9 @@
+name: ng2gen
+version: 0.0.1
+description: Angular2 Component Files Generator
+Author: Luis Vargas <luisvargastijerino@gmail.com>
+homepage: https://github.com/luisvt/ng2gen
+dependencies:
+  dev_string_converter: ^0.1.0
+executables:
+  ng2gen_component: component
