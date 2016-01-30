@@ -55,6 +55,37 @@ class MyComponent {
 
 and `my_component.html` will be empty.
 
+## Create Component with Inline Template
+
+To create a component with inline template you only need to do this:
+
+```
+cd path/to/generate/component
+pub global run ng2gen component_inline my_component
+```
+
+or you can also add `~/.pub-cache/bin` to your class path and do:
+
+```
+cd path/to/generate/component
+ng2gen component_inline my_component
+```
+
+this should generate `my_component.dart` containing:
+
+```dart
+// Copyright (c) 2016, <your name>. All rights reserved. Use of this source code
+// is governed by a BSD-style license that can be found in the LICENSE file.
+
+import 'package:angular2/angular2.dart';
+
+@Directive(
+  selector: '[my-component]')
+class MyComponent {
+
+}
+```
+
 ## Create Directive
 
 To create a directive you only need to do this:

@@ -1,6 +1,7 @@
 import 'component.dart' as component;
 import 'directive.dart' as directive;
 import 'service.dart' as service;
+import 'component_inline.dart' as component_inline;
 import 'dart:io';
 
 /// Creates a
@@ -10,6 +11,10 @@ main(List<String> args) {
     case 'component':
       _showHelp(args, 1);
       component.main(args.getRange(1, args.length).toList());
+      break;
+    case 'component_inline':
+      _showHelp(args, 1);
+      component_inline.main(args.getRange(1, args.length).toList());
       break;
     case 'directive':
       _showHelp(args, 1);
