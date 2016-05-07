@@ -57,9 +57,21 @@ main(List<String> args) async {
         exit(1);
     }
 
+    ConfigFile config = new ConfigFile();
+
+    Process.runSync("mv", ["lib/__projectName__.dart", "lib/$name.dart"] );
     Process.runSync("replace", [ "__projectName__", "$name", "--", "pubspec.yaml"]);
     Process.runSync("replace", [ "__projectName__", "$name", "--", "angular.config.yaml"]);
     Process.runSync("replace", [ "__projectName__", "$name", "--", "web/main.dart"]);
+
+    Process.runSync("replace", [ "__projectName__", "$name", "--", "lib/$name.dart"]);
+    Process.runSync("replace", [ "__projectName__", "$name", "--", "${config.servicesPath}/services.dart"]);
+    Process.runSync("replace", [ "__projectName__", "$name", "--", "lib/models.dart"]);
+    Process.runSync("replace", [ "__projectName__", "$name", "--", "${config.componentsPath}/components.dart"]);
+    Process.runSync("replace", [ "__projectName__", "$name", "--", "${config.pipesPath}/pipes.dart"]);
+    Process.runSync("replace", [ "__projectName__", "$name", "--", "${config.routesPath}/routes.dart"]);
+    Process.runSync("replace", [ "__projectName__", "$name", "--", "${config.directivesPath}/directives.dart"]);
+
 
     output('Running Pub Get', Color.green);
 
