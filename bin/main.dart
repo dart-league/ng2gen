@@ -2,6 +2,7 @@ import 'component.dart' as component;
 import 'directive.dart' as directive;
 import 'service.dart' as service;
 import 'pipe.dart' as pipe;
+import 'app.dart' as app;
 import 'component_inline.dart' as component_inline;
 import 'dart:io';
 
@@ -32,11 +33,11 @@ main(List<String> args) {
  /*   case 'route':
       _showHelp(args, 1);
       service.main(args.getRange(1, args.length).toList());
-      break;
+      break;*/
     case 'new':
      _showHelp(args, 1);
-      component.main(args.getRange(1, args.length).toList());
-      break;*/
+      app.main(args.getRange(1, args.length).toList());
+      break;
     case '--help':
     case '-h':
     default:
