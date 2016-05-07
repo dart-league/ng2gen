@@ -53,6 +53,7 @@ USAGE:
   component_inline <component_name> :   creates a new folder with the name of component but without html file.
   directive <directive_name>        :   creates a new directive.
   service <service_name>            :   creates a new service.
+  pipe <pipe_name>                  :   creates a new pipe.
 ''');
     exit(0);
   }
