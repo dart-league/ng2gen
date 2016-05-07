@@ -50,11 +50,12 @@ void _showHelp([List<String> args, int index]) {
     print('''
 USAGE:
   -h, --help                        :   shows this content.
-  component <component_name>        :   creates a new folder with the name of component.
-  component_inline <component_name> :   creates a new folder with the name of component but without html file.
-  directive <directive_name>        :   creates a new directive.
-  service <service_name>            :   creates a new service.
-  pipe <pipe_name>                  :   creates a new pipe.
+  new <app_name>                    :   create a new Angular2 application.
+  component <component_name>        :   create a new folder with the name of component.
+  component_inline <component_name> :   create a new folder with the name of component but without html file.
+  directive <directive_name>        :   create a new directive.
+  service <service_name>            :   create a new service.
+  pipe <pipe_name>                  :   create a new pipe.
 ''');
     exit(0);
   }

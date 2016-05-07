@@ -29,3 +29,4 @@ pubspec.lock
 # Idea files and folders
 .idea
 /ng2gen.iml
+packages
