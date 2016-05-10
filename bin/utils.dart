@@ -74,63 +74,63 @@ class ConfigFile {
   }
 
   String get projectName {
-    if (_config?.containsKey("project")) {
+    if (_config != null && _config.containsKey("project")) {
       return _config["project"]["name"];
     }
     return null;
   }
 
   int get serverPort {
-    if (_config?.containsKey("server")) {
+    if (_config != null && _config.containsKey("server")) {
       return _config["server"]["port"];
     }
     return null;
   }
 
   String get serverHostname {
-    if (_config?.containsKey("server")) {
+    if (_config != null && _config.containsKey("server")) {
       return _config["server"]["hostname"];
     }
     return null;
   }
 
   String get componentsPath {
-    if (_config?.containsKey("project")) {
+    if (_config != null &&_config.containsKey("project")) {
       return _config["project"]["components"];
     }
     return null;
   }
 
   String get servicesPath {
-    if (_config?.containsKey("project")) {
+    if (_config != null && _config.containsKey("project")) {
       return _config["project"]["services"];
     }
     return null;
   }
 
   String get pipesPath {
-    if (_config?.containsKey("project")) {
+    if (_config != null && _config.containsKey("project")) {
       return _config["project"]["pipes"];
     }
     return null;
   }
 
   String get routesPath {
-    if (_config?.containsKey("project")) {
+    if (_config != null && _config.containsKey("project")) {
       return _config["project"]["routes"];
     }
     return null;
   }
 
   String get directivesPath {
-    if (_config?.containsKey("project")) {
+    if (_config != null && _config.containsKey("project")) {
       return _config["project"]["directives"];
     }
     return null;
   }
 
   String get modelsPath {
-    if (_config?.containsKey("project")) {
+    if (_config != null && _config.containsKey("project")) {
       return _config["project"]["models"];
     }
     return null;
