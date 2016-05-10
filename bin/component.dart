@@ -40,7 +40,7 @@ import 'package:angular2/core.dart';
   styleUrls: const ['${toTableName(name)}_component.css'])
 class ${toUpperCamelCase(name)} implements OnInit {
 
-  ${toUpperCamelCase(name)}() {}
+  ${toUpperCamelCase(name)}();
 
   ngOnInit() {}
 

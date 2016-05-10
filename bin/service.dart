@@ -33,7 +33,7 @@ import "package:angular2/core.dart";
 @Injectable()
 class ${toUpperCamelCase(name)}Service {
 
-  ${toUpperCamelCase(name)}Service() {}
+  ${toUpperCamelCase(name)}Service();
 
 }
 ''';
