@@ -60,18 +60,3 @@ USAGE:
     exit(0);
   }
 }
-
-String get defaultConfig => '''
-project:
-  name: "__projectName__"
-  components: "lib/components"
-  directives: "lib/directives"
-  services: "lib/services"
-  models: "lib/models"
-  routes: "lib/routes"
-  pipes: "lib/pipes"
-
-server:
-  hostname: "0.0.0.0"
-  port: 1337
-''';
