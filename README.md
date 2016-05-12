@@ -10,7 +10,7 @@ To install this package globally you only need to do:
 pub global activate ng2gen
 ```
 
-this will download and install `ng2gen_component` executable into `~/.pub-cache/bin`
+this will download and install `ng2gent` executable into `~/.pub-cache/bin`
 
 ## Create Component
 
