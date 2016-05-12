@@ -4,7 +4,7 @@ import 'service.dart' as service;
 import 'component_inline.dart' as component_inline;
 import 'dart:io';
 
-/// Creates a
+/// Creates a component, directive or service in dependence of the passed arguments
 main(List<String> args) {
   _showHelp(args, 0);
   switch(args[0]) {
