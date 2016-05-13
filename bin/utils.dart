@@ -136,5 +136,18 @@ class ConfigFile {
     return null;
   }
 
+}
 
+StreamSubscription _progressSubscription;
+
+void progress() {
+  _progressSubscription =
+      new Stream.periodic(const Duration(seconds: 1)).listen((_) {
+        output('.', Color.white);
+      });
+}
+
+void endProgress() {
+  _progressSubscription.cancel();
+  stdout.write('\n');
 }

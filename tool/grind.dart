@@ -3,11 +3,11 @@
  */
 
 import "dart:io";
+import "dart:convert";
 
-import 'package:crypto/crypto.dart';
+//import 'package:crypto/crypto.dart';
 import 'package:grinder/grinder.dart';
 import 'package:path/path.dart' as path;
-import 'package:stagehand/stagehand.dart' as stagehand;
 
 main(List<String> args) => grind(args);
 
@@ -57,8 +57,7 @@ Iterable<String> _traverse(Directory dir, String root) sync* {
     } else {
       yield '${root}${name}';
       yield _isBinaryFile(name) ? 'binary' : 'text';
-      yield BASE64.encode((entity as File).readAsBytesSync(),
-          addLineSeparator: true);
+      yield BASE64.encode((entity as File).readAsBytesSync());
     }
   }
 }
@@ -83,21 +82,4 @@ List<FileSystemEntity> _listSync(Directory dir,
   dir.listSync(recursive: recursive, followLinks: followLinks);
   results.sort((entity1, entity2) => entity1.path.compareTo(entity2.path));
   return results;
-}
-
-/// Look for [start] and [end] in [source]; replace the current contents with
-/// [replacement], and return the result.
-String _replaceInString(String source, String start, String end,
-    String replacement) {
-  int startIndex = source.indexOf(start);
-  int endIndex = source.indexOf(end, startIndex + 1);
-
-  if (startIndex == -1 || endIndex == -1) {
-    fail('Could not find text to replace');
-  }
-
-  return source.substring(0, startIndex + start.length + 1) +
-      replacement +
-      '\n' +
-      source.substring(endIndex);
 }
