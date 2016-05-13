@@ -7,6 +7,11 @@ import 'dart:async';
 
 import "package:dev_string_converter/dev_string_converter.dart";
 import "utils.dart";
+import "package:resource/resource.dart" as resource;
+import "package:stagehand/stagehand.dart";
+import "package:stagehand/src/common.dart";
+import "app_template_data.dart" as template;
+import 'package:path/path.dart' as path;
 
 
 StreamSubscription _progressSubscription;
@@ -23,62 +28,74 @@ void _endProgress() {
     stdout.write('\n');
 }
 
+class _DirectoryGeneratorTarget extends GeneratorTarget {
+  final Directory dir;
+
+  _DirectoryGeneratorTarget(this.dir) {
+    dir.createSync();
+  }
+
+  Future createFile(String filePath, List<int> contents) {
+    File file = new File(path.join(dir.path, filePath));
+
+    return file
+        .create(recursive: true)
+        .then((_) => file.writeAsBytes(contents));
+  }
+}
+
+
+class Angular2Gen extends DefaultGenerator {
+  String projectName;
+  GeneratorTarget target;
+
+   Angular2Gen(this.projectName)
+        : super('ng2gen', 'Angular 2 Web Application',
+        'A web app built using Angular 2.') {
+
+     for (TemplateFile file in decodeConcatenatedData(template.data)) {
+       addTemplateFile(file);
+     }
+
+     target = new _DirectoryGeneratorTarget(new Directory(projectName));
+
+        //setEntrypoint(getFile('web/index.html'));
+    }
+
+   Future generateProject() {
+     Map vars = {
+       'projectName': projectName
+     };
+
+     return Future.forEach(files, (TemplateFile file) {
+       var resultFile = file.runSubstitution(vars);
+       String filePath = resultFile.path;
+       output('\t$filePath', Color.white);
+       output(' created\n', Color.green);
+       return target.createFile(filePath, resultFile.content);
+     });
+   }
+
+    String getInstallInstructions() => "Hint: cd $projectName &&  grind --help";
+}
+
 
 main(List<String> args) async {
     var name = toTableName(args[0]);
-    output('Cloning template repository', Color.green);
-    _progress();
-    ProcessResult result;
-    try {
-        result = await Process.run('git', [
-            'clone',
-            'https://github.com/lejard-h/angular2_project_template.git',
-            '-bmaster',
-            '--single-branch',
-            name,
-        ]);
-    } catch (e) {
-        output('\n••• Couldn\'t run git clone', Color.red);
-    }
 
+    output("Creating $name application\n", Color.green);
+    _progress();
+    Angular2Gen generator = new Angular2Gen(name);
+    await generator.generateProject();
     _endProgress();
 
-    if (result.exitCode != 0) {
-        output('${result.stderr}\n', Color.red);
-        exit(1);
-    }
-
     Directory.current = name;
-
-    try {
-        await new Directory('.git').delete(recursive: true);
-    } catch (e) {
-        output('$e\n', Color.red);
-        exit(1);
-    }
-
-    ConfigFile config = new ConfigFile();
-
-    Process.runSync("mv", ["lib/__projectName__.dart", "lib/$name.dart"] );
-    Process.runSync("replace", [ "__projectName__", "$name", "--", "pubspec.yaml"]);
-    Process.runSync("replace", [ "__projectName__", "$name", "--", "angular.config.yaml"]);
-    Process.runSync("replace", [ "__projectName__", "$name", "--", "web/main.dart"]);
-
-    Process.runSync("replace", [ "__projectName__", "$name", "--", "lib/$name.dart"]);
-    Process.runSync("replace", [ "__projectName__", "$name", "--", "${config.servicesPath}/services.dart"]);
-    Process.runSync("replace", [ "__projectName__", "$name", "--", "lib/models.dart"]);
-    Process.runSync("replace", [ "__projectName__", "$name", "--", "${config.componentsPath}/components.dart"]);
-    Process.runSync("replace", [ "__projectName__", "$name", "--", "${config.pipesPath}/pipes.dart"]);
-    Process.runSync("replace", [ "__projectName__", "$name", "--", "${config.routesPath}/routes.dart"]);
-    Process.runSync("replace", [ "__projectName__", "$name", "--", "${config.directivesPath}/directives.dart"]);
-
 
     output('Running Pub Get', Color.green);
 
     _progress();
 
     try {
-
         await Process.run('pub', ['get']);
     } catch (e) {
         output('\n••• Couldn\'t run pub get', Color.red);
