@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import 'component.dart' as component;
 import 'directive.dart' as directive;
 import 'service.dart' as service;
 import 'pipe.dart' as pipe;
 import 'app.dart' as app;
 import 'component_inline.dart' as component_inline;
-import 'dart:io';
+import 'route.dart' as route;
 
 /// Creates a
 main(List<String> args) {
@@ -30,10 +32,10 @@ main(List<String> args) {
       _showHelp(args, 1);
       pipe.main(args.getRange(1, args.length).toList());
       break;
- /*   case 'route':
-      _showHelp(args, 1);
-      service.main(args.getRange(1, args.length).toList());
-      break;*/
+    case 'route':
+      _showHelp(args, 2);
+      route.main(args.getRange(1, args.length).toList());
+      break;
     case 'new':
      _showHelp(args, 1);
       app.main(args.getRange(1, args.length).toList());
@@ -56,6 +58,7 @@ USAGE:
   directive <directive_name>        :   create a new directive.
   service <service_name>            :   create a new service.
   pipe <pipe_name>                  :   create a new pipe.
+  route <route_name> <route_path>   :   create a new route.
 ''');
     exit(0);
   }

@@ -17,10 +17,10 @@ Future<File> createFile(String path) async {
   return file;
 }
 
-DartFormatter _formatter = new DartFormatter();
+DartFormatter formatter = new DartFormatter();
 
 writeInDartFile(String path, String content) async =>
-    writeInFile(path, _formatter.format(content));
+    writeInFile(path, formatter.format(content));
 
 writeInFile(String path, String content) async {
   File fileDart = await createFile(path);

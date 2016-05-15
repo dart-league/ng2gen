@@ -19,6 +19,6 @@ import "routes/routes.dart";
     directives: const [ROUTER_DIRECTIVES])
 @RouteConfig(const [
   const Route(
-      useAsDefault: true, path: '/home', name: 'Home', component: HomeRoute)
+      useAsDefault: false, path: '/home', name: 'Home', component: HomeRoute)
 ])
 class AppComponent {}

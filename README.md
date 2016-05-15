@@ -30,6 +30,7 @@ pub global run ng2gen:new app
 - `ng2gen directive my_directive`
 - `ng2gen service my_service`
 - `ng2gen pipe my_pipe`
+- `ng2gen route home /home_path`
 
 ## Create an Application
 
@@ -112,3 +113,20 @@ ng2gen pipe my_pipe
 ```
 
 This should generate `my_pipe.dart`.
+
+## Create Route
+
+To create a route you only need to do this:
+
+```
+ng2gen route home /home_path
+```
+
+This should generate :
+
+```
+home_route
+       ├─ home_route_component.dart
+       ├─ home_route_component.css
+       └─ home_route_component.html
+```
