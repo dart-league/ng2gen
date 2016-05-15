@@ -1,6 +1,7 @@
 library __projectName__;
 
 import 'package:angular2/core.dart';
+import "package:angular2/router.dart";
 
 export "models.dart";
 export "convert/convert.dart";
@@ -10,5 +11,14 @@ export "directives/directives.dart";
 export "routes/routes.dart";
 export "components/components.dart";
 
-@Component(selector: 'my-app', template: '<h1>My First Angular 2 App</h1>')
+import "routes/routes.dart";
+
+@Component(
+    selector: 'my-app',
+    templateUrl: "__projectName__.html",
+    directives: const [ROUTER_DIRECTIVES])
+@RouteConfig(const [
+  const Route(
+      useAsDefault: true, path: '/home', name: 'Home', component: HomeRoute)
+])
 class AppComponent {}
