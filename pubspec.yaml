@@ -1,11 +1,22 @@
 name: ng2gen
-version: 0.0.3+1
+version: 0.1.0
 description: Angular2 Component Files Generator
-author: Luis Vargas <luisvargastijerino@gmail.com>
+author:
+  - Luis Vargas <luisvargastijerino@gmail.com>
+  - Hadrien Lejard <hadrien.lejard@gmail.com>
 homepage: https://github.com/luisvt/ng2gen
 environment:
   sdk: ">=1.8.0 <2.0.0"
+
 dependencies:
   dev_string_converter: ^0.1.0
+  yaml: "^2.1.9"
+  dart_style: "^0.2.2"
+  resource: "^1.1.0"
+  stagehand: ^1.0.8
+
+dev_dependencies:
+  grinder: any
+
 executables:
   ng2gen: main

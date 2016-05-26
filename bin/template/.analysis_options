@@ -1,0 +1,9 @@
+analyzer:
+  strong-mode: true
+  exclude:
+    - lib/convert
+
+linter:
+  rules:
+    - camel_case_types
+    - always_specify_types
