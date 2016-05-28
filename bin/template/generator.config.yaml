@@ -3,7 +3,7 @@ project:
   components: "lib/components"
   directives: "lib/directives"
   services: "lib/services"
-  routes: "lib/routes"
+  routes: "lib/components"
   pipes: "lib/pipes"
 
 server:

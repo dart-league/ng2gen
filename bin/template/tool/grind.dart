@@ -1,110 +1,12 @@
 import "dart:io";
 import "package:grinder/grinder.dart";
-import "package:yaml/yaml.dart";
-import "package:dogma_codegen/build.dart" as dogma_build;
-import "package:watcher/watcher.dart";
+import 'package:ng2gen/ng2gen_configs.dart';
 
-class ConfigFile {
-  static Map<String, dynamic> _config;
-
-  ConfigFile() {
-    if (_config == null) {
-      File _configFile = new File("angular.config.yaml");
-      if (_configFile.existsSync()) {
-        _config = loadYaml(_configFile.readAsStringSync()) as Map<String, dynamic>;
-      }
-    }
-  }
-
-  String get projectName {
-    if (_config != null  && _config.containsKey("project")) {
-      return _config["project"]["name"];
-    }
-    return null;
-  }
-
-  int get serverPort {
-    if (_config != null  && _config.containsKey("server")) {
-      return _config["server"]["port"];
-    }
-    return null;
-  }
-
-  String get serverHostname {
-    if (_config != null  && _config.containsKey("server")) {
-      return _config["server"]["hostname"];
-    }
-    return null;
-  }
-
-  String get componentsPath {
-    if (_config != null  && _config.containsKey("project")) {
-      return _config["project"]["components"];
-    }
-    return null;
-  }
-
-  String get servicesPath {
-    if (_config != null  && _config.containsKey("project")) {
-      return _config["project"]["services"];
-    }
-    return null;
-  }
-
-  String get pipesPath {
-    if (_config != null  && _config.containsKey("project")) {
-      return _config["project"]["pipes"];
-    }
-    return null;
-  }
-
-  String get routesPath {
-    if (_config != null  && _config.containsKey("project")) {
-      return _config["project"]["routes"];
-    }
-    return null;
-  }
-
-  String get directivesPath {
-    if (_config != null  && _config.containsKey("project")) {
-      return _config["project"]["directives"];
-    }
-    return null;
-  }
-
-  String get modelsPath {
-    if (_config != null  && _config.containsKey("project")) {
-      return _config["project"]["models"];
-    }
-    return null;
-  }
-}
-
-ConfigFile config = new ConfigFile();
+Ng2GenConfigs config = new Ng2GenConfigs();
 
 main(List<String> args) async => await grind(args);
 
-@Task("models")
-codegen() async {
-  await dogma_build.build([],
-      modelLibrary: "lib/models.dart",
-      modelPath: "lib/models/",
-      convertPath: "lib/convert",
-      convertLibrary: "lib/convert/convert.dart",
-      mapper: false,
-      unmodifiable: false);
-}
-
-@Task("watchModels")
-watchModels() {
-  new Watcher("lib/models").events.listen((WatchEvent _) {
-    print("[codegen]");
-    codegen();
-  });
-}
-
 @Task("serve")
-@Depends(codegen, watchModels)
 serve() async {
   Process _server = await Process.start(
       "pub",
@@ -157,7 +59,7 @@ test() {
 }
 
 @Task("deploy")
-@Depends(test, doc, codegen, build)
+@Depends(test, doc, build)
 deploy() async {}
 
 @Task("clean")

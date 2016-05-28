@@ -1,7 +1,8 @@
 import 'package:dev_string_converter/dev_string_converter.dart';
 import "utils.dart";
+import 'package:ng2gen/ng2gen_configs.dart';
 
-ConfigFile config = new ConfigFile();
+Ng2GenConfigs config = new Ng2GenConfigs();
 
 main(List<String> args) async {
 

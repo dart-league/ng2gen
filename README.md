@@ -10,7 +10,7 @@ To install this package globally you only need to do:
 pub global activate ng2gen
 ```
 
-this will download and install `ng2gen_component` executable into `~/.pub-cache/bin`, then add `~/.pub-cache/bin` to your path to directly use the executable like this
+this will download and install `ng2gen` executable into `~/.pub-cache/bin`, then add `~/.pub-cache/bin` to your path to directly use the executable like this
 
 ```
 ng2gen new app
@@ -35,6 +35,7 @@ pub global run ng2gen:new app
 ## Create an Application
 
 ```
+mkdir my_app && cd $_ #create directory where the app is going to live
 ng2gen new my_app
 ```
 
@@ -50,8 +51,6 @@ The application comes with grind to help you in your development.
     - `test`
     - `doc`
     - `deploy`
-
-A prefigured `dogma_codegen` environment is provided, it will allow you to automatically generate code for serialize and deserialize your model in the models folder.
 
 ## Create Component
 

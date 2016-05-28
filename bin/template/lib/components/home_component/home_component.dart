@@ -4,16 +4,16 @@
 import 'package:angular2/core.dart';
 
 @Component(
-  selector: 'home-route',
+  selector: 'home-component',
   template: '''
         <p>
           home-route works!
         </p>
         ''',
-  styleUrls: const ['home_route.css'])
-class HomeRoute implements OnInit {
+  styleUrls: const ['home_component.css'])
+class HomeComponent implements OnInit {
 
-  HomeRoute();
+  HomeComponent();
 
   ngOnInit() {}
 
