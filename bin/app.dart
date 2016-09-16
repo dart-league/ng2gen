@@ -6,11 +6,11 @@ import "dart:io";
 import 'dart:async';
 
 import "package:dev_string_converter/dev_string_converter.dart";
-import "utils.dart";
 import "package:stagehand/stagehand.dart";
 import "package:stagehand/src/common.dart";
-import "app_template_data.dart" as template;
 import 'package:path/path.dart' as path;
+import "app_template_data.dart" as template;
+import "utils.dart";
 
 class _DirectoryGeneratorTarget extends GeneratorTarget {
   final Directory dir;

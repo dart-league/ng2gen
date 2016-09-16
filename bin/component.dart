@@ -11,19 +11,21 @@ main(List<String> args) async {
 
   if (config?.componentsPath != null) {
     path = "${config.componentsPath}/${toTableName(name)}";
-    lib = "${config.componentsPath}/components.dart";
+    lib = "lib/components.dart";
   }
 
-  String dartPath = '$path/${toTableName(name)}_component.dart';
-  String htmlPath = '$path/${toTableName(name)}_component.html';
-  String cssPath = '$path/${toTableName(name)}_component.css';
+  String prefix =  config?.componentsPath != null ? "lib/" : "";
+
+  String dartPath = '$prefix$path/${toTableName(name)}_component.dart';
+  String htmlPath = '$prefix$path/${toTableName(name)}_component.html';
+  String cssPath = '$prefix$path/${toTableName(name)}_component.css';
 
   await writeInFile(dartPath, componentTemplateDart(name));
   await writeInFile(htmlPath, componentTemplateHtml(name));
   await createFile(cssPath);
 
   if (lib != null) {
-    addToLibrary("${toTableName(name)}/${toTableName(name)}_component.dart", lib);
+    addToLibrary("$path/${toTableName(name)}_component.dart", lib);
   }
 
 }

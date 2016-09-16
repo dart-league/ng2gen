@@ -3,6 +3,8 @@ import "dart:async";
 import "package:dart_style/dart_style.dart";
 import "package:yaml/yaml.dart";
 
+const String config_file_name = "angular.config.yaml";
+
 Future<File> createFile(String path) async {
   File file = new File(path);
   if (!file.existsSync()) {
@@ -51,7 +53,7 @@ void output(String input, Color color) {
 addToLibrary(String name, String libPath) {
   File lib = new File(libPath);
   if (!lib.existsSync()) {
-   throw "Library at $libPath does not exist";
+    output("Creating library '$libPath'.\n", Color.gray);
   }
 
   lib.writeAsStringSync(
@@ -73,12 +75,6 @@ class ConfigFile {
     }
   }
 
-  String get projectName {
-    if (_config != null && _config.containsKey("project")) {
-      return _config["project"]["name"];
-    }
-    return null;
-  }
 
   int get serverPort {
     if (_config != null && _config.containsKey("server")) {
@@ -132,6 +128,13 @@ class ConfigFile {
   String get modelsPath {
     if (_config != null && _config.containsKey("project")) {
       return _config["project"]["models"];
+    }
+    return null;
+  }
+
+  String get rootPath {
+    if (_config != null && _config.containsKey("project")) {
+      return _config["project"]["root"];
     }
     return null;
   }

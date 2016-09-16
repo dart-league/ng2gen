@@ -11,15 +11,17 @@ main(List<String> args) async {
 
   if (config?.pipesPath != null) {
     path = "${config.pipesPath}";
-    lib = "${config.pipesPath}/pipes.dart";
+    lib = "lib/pipes.dart";
   }
 
-  String dartPath = '$path/${toTableName(name)}_pipe.dart';
+  String prefix =  config?.pipesPath != null ? "lib/" : "";
+
+  String dartPath = '$prefix$path/${toTableName(name)}_pipe.dart';
 
   await writeInFile(dartPath, pipeTemplate(name));
 
   if (lib != null) {
-    addToLibrary("${toTableName(name)}_pipe.dart", lib);
+    addToLibrary("$path/${toTableName(name)}_pipe.dart", lib);
   }
 
 }

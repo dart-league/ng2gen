@@ -11,15 +11,17 @@ main(List<String> args) async {
 
   if (config?.directivesPath != null) {
     path = "${config.directivesPath}";
-    lib = "${config.directivesPath}/directives.dart";
+    lib = "lib/directives.dart";
   }
 
-  String dartPath = '$path/${toTableName(name)}_directive.dart';
+  String prefix =  config?.directivesPath != null ? "lib/" : "";
+
+  String dartPath = '$prefix$path/${toTableName(name)}_directive.dart';
 
   await writeInFile(dartPath, directiveTemplate(name));
 
   if (lib != null) {
-    addToLibrary("${toTableName(name)}_directive.dart", lib);
+    addToLibrary("$path/${toTableName(name)}_directive.dart", lib);
   }
 
 }
