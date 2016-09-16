@@ -7,7 +7,7 @@ import "package:angular2/router.dart";
 import "package:angular2/src/platform/browser/location/hash_location_strategy.dart";
 import "package:angular2/platform/common.dart";
 
-import "package:__projectName__/__projectName__.dart";
+import "package:__projectName__/app.dart";
 
 bool get isDebug => (const String.fromEnvironment("PRODUCTION", defaultValue: "false")) != "true";
 

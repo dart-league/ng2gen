@@ -1,10 +1,10 @@
 project:
-  name: "__projectName__"
-  components: "lib/components"
-  directives: "lib/directives"
-  services: "lib/services"
-  routes: "lib/routes"
-  pipes: "lib/pipes"
+  root: "."
+  components: "components"
+  directives: "directives"
+  services: "services"
+  routes: "routes"
+  pipes: "pipes"
 
 server:
   hostname: "0.0.0.0"

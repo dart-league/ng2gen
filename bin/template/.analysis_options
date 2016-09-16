@@ -1,7 +1,5 @@
 analyzer:
   strong-mode: true
-  exclude:
-    - lib/convert
 
 linter:
   rules:

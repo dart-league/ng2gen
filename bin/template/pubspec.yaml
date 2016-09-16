@@ -5,19 +5,21 @@ author:
 homepage:
 
 dependencies:
-    angular2: 2.0.0-beta.17
+    angular2: 2.0.0-beta.21
     browser: ^0.10.0
     dart_to_js_script_rewriter: ^1.0.1
 
 dev_dependencies:
     grinder: "^0.8.0+2"
     test: "^0.12.13+1"
-    watcher: "^0.9.7+2"
     yaml: "^2.1.9"
-    dogma_codegen: '>=0.0.2 <0.1.0'
 
 transformers:
     - angular2:
+        platform_directives:
+          - 'package:angular2/common.dart#COMMON_DIRECTIVES'
+        platform_pipes:
+          - 'package:angular2/common.dart#COMMON_PIPES'
         entry_points: web/main.dart
     - dart_to_js_script_rewriter
     - $dart2js:
