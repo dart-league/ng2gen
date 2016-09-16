@@ -1,3 +1,9 @@
+## 0.2.0
+* Add `init` command to create a config file inside an existing project
+* Update Angular
+* move all libraries export to `lib/`
+* bugfix
+
 ## 0.1.0
 
 ### Add full application generation with `new` command
