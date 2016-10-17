@@ -18,12 +18,14 @@ main(List<String> _) async {
 
 String get configYaml =>
 '''project:
-  root: "."
+  root: "app.dart"
   components: "lib/components"
   directives: "lib/directives"
   services: "lib/services"
   routes: "lib/routes"
   pipes: "lib/pipes"
+  sass: false
+  less: false
 server:
   hostname: "0.0.0.0"
   port: 1337''';

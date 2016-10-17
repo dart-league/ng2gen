@@ -8,64 +8,68 @@ import "component.dart";
 ConfigFile config = new ConfigFile();
 
 main(List<String> args) async {
+  String name = args[0];
+  String routePath = args[1];
+  String lib;
+  String path = "${toTableName(name)}";
 
-    String name = "${args[0]}-route";
-    String lib;
-    String path = "${toTableName(name)}";
-    String routePath = args[1];
+  if (config?.routesPath != null) {
+    path = "${config.routesPath}/${toTableName(name)}";
+    lib = "lib/routes.dart";
+  }
 
-    if (config?.routesPath != null) {
-        path = "${config.routesPath}/${toTableName(name)}";
-        lib = "lib/routes.dart";
-    }
+  String prefix = config?.routesPath != null ? "lib/" : "";
+  String filePath = '$prefix$path/${toTableName(name)}';
 
-    String prefix =  config?.routesPath != null ? "lib/" : "";
+  String dartPath = '$filePath.dart';
+  String htmlPath = '$filePath.html';
+  String cssPath = '$filePath.${config.styleFileType}';
 
-    String dartPath = '$prefix$path/${toTableName(name)}_component.dart';
-    String htmlPath = '$prefix$path/${toTableName(name)}_component.html';
-    String cssPath = '$prefix$path/${toTableName(name)}_component.css';
+  await writeInFile(dartPath, componentRouteTemplateDart(name, routePath));
+  await writeInFile(htmlPath, componentTemplateHtml(name));
+  await createFile(cssPath);
 
-    await writeInFile(dartPath, componentRouteTemplateDart(name, routePath));
-    await writeInFile(htmlPath, componentTemplateHtml(name));
-    await createFile(cssPath);
-
-    if (lib != null) {
-        addToLibrary("$path/${toTableName(name)}_component.dart", lib);
-        addToRouteConfig(toUpperCamelCase(name), config?.rootPath);
-    }
+  if (lib != null) {
+    addToLibrary("$path/${toTableName(name)}.dart", lib);
+    addToRouteConfig(toUpperCamelCase(name), config?.rootPath);
+  }
 }
 
-String componentRouteTemplateDart(String name, String path) =>
-    '''// Copyright (c) 2016, <your name>. All rights reserved. Use of this source code
-// is governed by a BSD-style license that can be found in the LICENSE file.
+String componentRouteTemplateDart(String name, String path) => '''import 'package:angular2/core.dart';
+import 'package:angular2/router.dart';
 
-import 'package:angular2/core.dart';
 @Component(
-  selector: '${toPolyName(name)}',
-  templateUrl: '${toTableName(name)}_component.html',
-  styleUrls: const ['${toTableName(name)}_component.css'])
+  selector: '${name.replaceAll("_", "-")}',
+  templateUrl: '${toTableName(name)}.html',
+  styleUrls: const <String>['${toTableName(name)}.css'])
 class ${toUpperCamelCase(name)} implements OnInit {
 
   static const String route_name = "${toUpperCamelCase(name)}";
   static const String route_path = "$path";
+  static const Route route = const Route(path: ${toUpperCamelCase(name)}.route_path,
+      component: ${toUpperCamelCase(name)},
+      name: ${toUpperCamelCase(name)}.route_name);
 
   ${toUpperCamelCase(name)}();
 
-  ngOnInit() {}
+  void ngOnInit() {}
 
 }
 ''';
 
 addToRouteConfig(String className, String rootPath) {
-    File rootComponent = new File("lib/$rootPath/app.dart");
+  File rootComponent = new File("lib/$rootPath");
 
-    if (rootComponent.existsSync()) {
-        String content = rootComponent.readAsStringSync();
-        content = formatter.format(content);
-        content = content.replaceFirst("@RouteConfig(const [", '''
-        @RouteConfig(const [
-            const Route(useAsDefault: false, path: $className.route_path, name: $className.route_name, component: $className),
+  if (rootComponent.existsSync()) {
+    String content = rootComponent.readAsStringSync();
+    content = formatter.format(content);
+    content = content.replaceFirst(
+        "/*Insert Routes here*/",
+        '''
+            /*Insert Routes here*/
+            $className.route,
         ''');
-        rootComponent.writeAsStringSync(formatter.format(content));
-    }
+    rootComponent.writeAsStringSync(formatter.format(content));
+    output("Route Inserted into root component.\n", Color.yellow);
+  }
 }

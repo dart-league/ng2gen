@@ -1,8 +1,13 @@
 ## 0.2.0
 * Add `init` command to create a config file inside an existing project
-* Update Angular
+* Update `Angular2`
 * move all libraries export to `lib/`
+* simplify generated file name (no '_component.dart', '_service.dart'...)
+* `sass` support
+* `less` support
+* refactor `Route` defintion
 * bugfix
+
 
 ## 0.1.0
 

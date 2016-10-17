@@ -7,7 +7,8 @@ import "routes.dart";
 @Component(
     selector: 'my-app',
     templateUrl: "app.html",
-    directives: const [ROUTER_DIRECTIVES])
-@RouteConfig(const [
+    directives: const <dynamic>[ROUTER_DIRECTIVES])
+@RouteConfig(const <dynamic>[
+  /*Insert Routes here*/
 ])
 class AppComponent {}

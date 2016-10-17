@@ -90,6 +90,20 @@ class ConfigFile {
     return null;
   }
 
+  bool get useSass {
+    if (_config != null &&_config.containsKey("project")) {
+      return _config["project"]["sass"];
+    }
+    return null;
+  }
+
+  bool get useLess {
+    if (_config != null &&_config.containsKey("project")) {
+      return _config["project"]["less"];
+    }
+    return null;
+  }
+
   String get componentsPath {
     if (_config != null &&_config.containsKey("project")) {
       return _config["project"]["components"];
@@ -137,6 +151,15 @@ class ConfigFile {
       return _config["project"]["root"];
     }
     return null;
+  }
+
+  String get styleFileType {
+    if (useSass == true) {
+      return "scss";
+    } else if (useLess == true) {
+      return "less";
+    }
+    return "css";
   }
 
 }

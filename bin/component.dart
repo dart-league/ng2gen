@@ -15,36 +15,34 @@ main(List<String> args) async {
   }
 
   String prefix =  config?.componentsPath != null ? "lib/" : "";
+  String filePath = '$prefix$path/${toTableName(name)}';
 
-  String dartPath = '$prefix$path/${toTableName(name)}_component.dart';
-  String htmlPath = '$prefix$path/${toTableName(name)}_component.html';
-  String cssPath = '$prefix$path/${toTableName(name)}_component.css';
+  String dartPath = '$filePath.dart';
+  String htmlPath = '$filePath.html';
+  String cssPath = '$filePath.${config.styleFileType}';
 
   await writeInFile(dartPath, componentTemplateDart(name));
   await writeInFile(htmlPath, componentTemplateHtml(name));
   await createFile(cssPath);
 
   if (lib != null) {
-    addToLibrary("$path/${toTableName(name)}_component.dart", lib);
+    addToLibrary("$path/${toTableName(name)}.dart", lib);
   }
 
 }
 
 String componentTemplateDart(String name) =>
-    '''// Copyright (c) 2016, <your name>. All rights reserved. Use of this source code
-// is governed by a BSD-style license that can be found in the LICENSE file.
-
-import 'package:angular2/core.dart';
+    '''import 'package:angular2/core.dart';
 
 @Component(
   selector: '${toPolyName(name)}',
   templateUrl: '${toTableName(name)}_component.html',
-  styleUrls: const ['${toTableName(name)}_component.css'])
+  styleUrls: const <String>['${toTableName(name)}_component.css'])
 class ${toUpperCamelCase(name)} implements OnInit {
 
   ${toUpperCamelCase(name)}();
 
-  ngOnInit() {}
+  void ngOnInit() {}
 
 }
 ''';

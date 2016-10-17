@@ -16,24 +16,21 @@ main(List<String> args) async {
 
   String prefix =  config?.pipesPath != null ? "lib/" : "";
 
-  String dartPath = '$prefix$path/${toTableName(name)}_pipe.dart';
+  String dartPath = '$prefix$path/${toTableName(name)}.dart';
 
   await writeInFile(dartPath, pipeTemplate(name));
 
   if (lib != null) {
-    addToLibrary("$path/${toTableName(name)}_pipe.dart", lib);
+    addToLibrary("$path/${toTableName(name)}.dart", lib);
   }
 
 }
 
 String pipeTemplate(String name) => '''
-// Copyright (c) 2016, <your name>. All rights reserved. Use of this source code
-// is governed by a BSD-style license that can be found in the LICENSE file.
-
 import "package:angular2/core.dart";
 
 @Pipe(
-  name: '${toUpperCamelCase(name)}'
+  name: '${toLowerCamelCase(name)}'
 )
 @Injectable()
 class ${toUpperCamelCase(name)} implements PipeTransform {
