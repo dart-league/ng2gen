@@ -31,6 +31,7 @@ pub global run ng2gen:new app
 - `ng2gen service my_service`
 - `ng2gen pipe my_pipe`
 - `ng2gen route home /home_path`
+- `ng2gen init`
 
 ## Create an Application
 
