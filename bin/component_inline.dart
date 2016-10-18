@@ -44,6 +44,7 @@ class ${toUpperCamelCase(name)} implements OnInit {
 
   ${toUpperCamelCase(name)}();
 
+  @override
   void ngOnInit() {}
 
 }

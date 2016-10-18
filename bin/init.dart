@@ -26,6 +26,4 @@ String get configYaml =>
   pipes: "lib/pipes"
   sass: false
   less: false
-server:
-  hostname: "0.0.0.0"
-  port: 1337''';
+  ''';

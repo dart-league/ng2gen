@@ -36,12 +36,13 @@ String componentTemplateDart(String name) =>
 
 @Component(
   selector: '${toPolyName(name)}',
-  templateUrl: '${toTableName(name)}_component.html',
-  styleUrls: const <String>['${toTableName(name)}_component.css'])
+  templateUrl: '${toTableName(name)}.html',
+  styleUrls: const <String>['${toTableName(name)}.css'])
 class ${toUpperCamelCase(name)} implements OnInit {
 
   ${toUpperCamelCase(name)}();
 
+  @override
   void ngOnInit() {}
 
 }

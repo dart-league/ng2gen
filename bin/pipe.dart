@@ -37,6 +37,7 @@ class ${toUpperCamelCase(name)} implements PipeTransform {
 
   const ${toUpperCamelCase(name)}();
 
+  @override
   dynamic transform(dynamic value, [List<dynamic> args = null]) {
     return value;
   }
