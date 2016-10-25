@@ -1,6 +1,5 @@
-import "dart:async";
 import "dart:io";
-
+import "dart:async";
 import "package:dart_style/dart_style.dart";
 
 Future<File> createFile(String path) async {
@@ -28,22 +27,19 @@ writeInFile(String path, String content) async {
   return fileDart;
 }
 
-class Color {
-  final int id;
+enum Color { blue, red, yellow, gray, green, white }
 
-  const Color(this.id);
-
-  static const blue = const Color(34),
-      red = const Color(31),
-      yellow = const Color(33),
-      gray = const Color(90),
-      green = const Color(32),
-      white = const Color(0);
-
-}
+int _colorId(Color color) => {
+  Color.blue: 34,
+  Color.red: 31,
+  Color.yellow: 33,
+  Color.gray: 90,
+  Color.green: 32,
+  Color.white: 0
+}[color];
 
 String _colorize(String input, Color color) {
-  return '\u001b[${color.id}m$input\u001b[39m';
+  return '\u001b[${_colorId(color)}m$input\u001b[39m';
 }
 
 void output(String input, Color color) {
@@ -54,7 +50,7 @@ void output(String input, Color color) {
 addToLibrary(String name, String libPath) {
   File lib = new File(libPath);
   if (!lib.existsSync()) {
-    throw "Library at $libPath does not exist";
+    output("Creating library '$libPath'.\n", Color.gray);
   }
 
   lib.writeAsStringSync(

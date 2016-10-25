@@ -1,80 +1,53 @@
 import 'dart:io';
 import 'package:yaml/yaml.dart';
 
+const String config_file_name = "generator.config.yaml";
+
 class Ng2GenConfigs {
 
   static Map _config;
 
   Ng2GenConfigs() {
     if (_config == null) {
-      File _configFile = new File("generator.config.yaml");
+      File _configFile = new File(config_file_name);
       if (_configFile.existsSync()) {
         _config = loadYaml(_configFile.readAsStringSync());
       }
     }
   }
 
-  String get projectName {
-    if (_config != null && _config.containsKey("project")) {
-      return _config["project"]["name"];
-    }
-    return null;
-  }
+  _getConfig(String configName) =>
+      (_config != null && _config.containsKey("project"))
+          ?  _config["project"][configName]
+          : null;
 
-  int get serverPort {
-    if (_config != null && _config.containsKey("server")) {
-      return _config["server"]["port"];
-    }
-    return null;
-  }
+  String get projectName => _getConfig('name');
 
-  String get serverHostname {
-    if (_config != null && _config.containsKey("server")) {
-      return _config["server"]["hostname"];
-    }
-    return null;
-  }
+  int get serverPort => _getConfig("port");
 
-  String get componentsPath {
-    if (_config != null &&_config.containsKey("project")) {
-      return _config["project"]["components"];
-    }
-    return null;
-  }
+  String get serverHostname => _getConfig("hostname");
 
-  String get servicesPath {
-    if (_config != null && _config.containsKey("project")) {
-      return _config["project"]["services"];
-    }
-    return null;
-  }
+  String get componentsPath => _getConfig("components");
 
-  String get pipesPath {
-    if (_config != null && _config.containsKey("project")) {
-      return _config["project"]["pipes"];
-    }
-    return null;
-  }
+  String get servicesPath => _getConfig("services");
 
-  String get routesPath {
-    if (_config != null && _config.containsKey("project")) {
-      return _config["project"]["routes"];
-    }
-    return null;
-  }
+  String get pipesPath  => _getConfig("pipes");
 
-  String get directivesPath {
-    if (_config != null && _config.containsKey("project")) {
-      return _config["project"]["directives"];
-    }
-    return null;
-  }
+  String get routesPath  => _getConfig("routes");
 
-  String get modelsPath {
-    if (_config != null && _config.containsKey("project")) {
-      return _config["project"]["models"];
+  String get directivesPath  => _getConfig("directives");
+
+  String get modelsPath => _getConfig("models");
+
+  String get rootPath => _getConfig("root");
+
+  String get styleFileType {
+    if (_getConfig('useSass') == true) {
+      return "scss";
+    } else if (_getConfig('useLess') == true) {
+      return "less";
     }
-    return null;
+    return "css";
   }
 
 }

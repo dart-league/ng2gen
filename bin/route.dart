@@ -2,48 +2,76 @@ import "dart:io";
 
 import 'package:dev_string_converter/dev_string_converter.dart';
 
+import 'package:ng2gen/ng2gen_configs.dart';
 import "utils.dart";
 import "component.dart";
-import 'package:ng2gen/ng2gen_configs.dart';
 
 Ng2GenConfigs config = new Ng2GenConfigs();
 
 main(List<String> args) async {
+  String name = args[0];
+  String routePath = args[1];
+  String lib;
+  String path = "${toTableName(name)}";
 
-    String name = "${args[0]}-component";
-    String lib;
-    String path = "${toTableName(name)}";
+  if (config?.routesPath != null) {
+    path = "${config.routesPath}/${toTableName(name)}";
+    lib = "lib/routes.dart";
+  }
 
-    if (config?.routesPath != null) {
-        path = "${config.routesPath}/${toTableName(name)}";
-        lib = "${config.routesPath}/components.dart";
-    }
+  String prefix = config?.routesPath != null ? "lib/" : "";
+  String filePath = '$prefix$path/${toTableName(name)}';
 
-    String dartPath = '$path/${toTableName(name)}_component.dart';
-    String htmlPath = '$path/${toTableName(name)}_component.html';
-    String cssPath = '$path/${toTableName(name)}_component.css';
+  String dartPath = '$filePath.dart';
+  String htmlPath = '$filePath.html';
+  String cssPath = '$filePath.${config.styleFileType}';
 
-    await writeInFile(dartPath, componentTemplateDart(name));
-    await writeInFile(htmlPath, componentTemplateHtml(name));
-    await createFile(cssPath);
+  await writeInFile(dartPath, componentRouteTemplateDart(name, routePath));
+  await writeInFile(htmlPath, componentTemplateHtml(name));
+  await createFile(cssPath);
 
-    if (lib != null) {
-        addToLibrary("${toTableName(name)}/${toTableName(name)}_component.dart", lib);
-        addToRouteConfig(toUpperCamelCase(name), toUpperCamelCase(args[0]), args[1]);
-    }
-
+  if (lib != null) {
+    addToLibrary("$path/${toTableName(name)}.dart", lib);
+    addToRouteConfig(toUpperCamelCase(name), config?.rootPath);
+  }
 }
 
-addToRouteConfig(String className, String name, String path) {
-    File rootComponent = new File("lib/${config.projectName}.dart");
+String componentRouteTemplateDart(String name, String path) => '''import 'package:angular2/core.dart';
+import 'package:angular2/router.dart';
 
-    if (rootComponent.existsSync()) {
-        String content = rootComponent.readAsStringSync();
-        content = formatter.format(content);
-        content = content.replaceFirst("@RouteConfig(const [", '''
-        @RouteConfig(const [
-            const Route(useAsDefault: false, path: '$path', name: '$name', component: $className),
+@Component(
+  selector: '${name.replaceAll("_", "-")}',
+  templateUrl: '${toTableName(name)}.html',
+  styleUrls: const <String>['${toTableName(name)}.css'])
+class ${toUpperCamelCase(name)} implements OnInit {
+
+  static const String route_name = "${toUpperCamelCase(name)}";
+  static const String route_path = "$path";
+  static const Route route = const Route(path: ${toUpperCamelCase(name)}.route_path,
+      component: ${toUpperCamelCase(name)},
+      name: ${toUpperCamelCase(name)}.route_name);
+
+  ${toUpperCamelCase(name)}();
+
+  @override
+  void ngOnInit() {}
+
+}
+''';
+
+addToRouteConfig(String className, String rootPath) {
+  File rootComponent = new File("lib/$rootPath");
+
+  if (rootComponent.existsSync()) {
+    String content = rootComponent.readAsStringSync();
+    content = formatter.format(content);
+    content = content.replaceFirst(
+        "/*Insert Routes here*/",
+        '''
+            /*Insert Routes here*/
+            $className.route,
         ''');
-        rootComponent.writeAsStringSync(formatter.format(content));
-    }
+    rootComponent.writeAsStringSync(formatter.format(content));
+    output("Route Inserted into root component.\n", Color.yellow);
+  }
 }
