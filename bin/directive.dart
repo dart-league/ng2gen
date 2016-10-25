@@ -12,23 +12,22 @@ main(List<String> args) async {
 
   if (config?.directivesPath != null) {
     path = "${config.directivesPath}";
-    lib = "${config.directivesPath}/directives.dart";
+    lib = "lib/directives.dart";
   }
 
-  String dartPath = '$path/${toTableName(name)}_directive.dart';
+  String prefix =  config?.directivesPath != null ? "lib/" : "";
+
+  String dartPath = '$prefix$path/${toTableName(name)}.dart';
 
   await writeInFile(dartPath, directiveTemplate(name));
 
   if (lib != null) {
-    addToLibrary("${toTableName(name)}_directive.dart", lib);
+    addToLibrary("$path/${toTableName(name)}.dart", lib);
   }
 
 }
 
 String directiveTemplate(String name) => '''
-// Copyright (c) 2016, <your name>. All rights reserved. Use of this source code
-// is governed by a BSD-style license that can be found in the LICENSE file.
-
 import "package:angular2/core.dart";
 
 @Directive(

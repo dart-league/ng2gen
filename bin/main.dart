@@ -7,11 +7,16 @@ import 'pipe.dart' as pipe;
 import 'app.dart' as app;
 import 'component_inline.dart' as component_inline;
 import 'route.dart' as route;
+import 'init.dart' as init;
 
 /// Creates a component, directive or service in dependence of the passed arguments
 main(List<String> args) {
   _showHelp(args, 0);
   switch(args[0]) {
+    case 'init':
+      _showHelp(args, 0);
+      init.main(args.getRange(1, args.length).toList());
+      break;
     case 'component':
       _showHelp(args, 1);
       component.main(args.getRange(1, args.length).toList());
@@ -59,6 +64,7 @@ USAGE:
   service <service_name>            :   create a new service.
   pipe <pipe_name>                  :   create a new pipe.
   route <route_name> <route_path>   :   create a new route.
+  init                              :   init an existing project with ng2gen
 ''');
     exit(0);
   }
