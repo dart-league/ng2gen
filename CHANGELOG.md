@@ -6,7 +6,6 @@
 * `sass` support
 * `less` support
 * refactor `Route` defintion
-* bugfix
 
 
 ## 0.1.0

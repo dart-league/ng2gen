@@ -2,10 +2,11 @@ import "dart:io";
 
 import 'package:dev_string_converter/dev_string_converter.dart';
 
+import 'package:ng2gen/ng2gen_configs.dart';
 import "utils.dart";
 import "component.dart";
 
-ConfigFile config = new ConfigFile();
+Ng2GenConfigs config = new Ng2GenConfigs();
 
 main(List<String> args) async {
   String name = args[0];

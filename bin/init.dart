@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:yaml/yaml.dart';
+import 'package:ng2gen/ng2gen_configs.dart';
 import "utils.dart";
 
 main(List<String> _) async {
@@ -18,12 +18,12 @@ main(List<String> _) async {
 
 String get configYaml =>
 '''project:
-  root: "app.dart"
-  components: "lib/components"
-  directives: "lib/directives"
-  services: "lib/services"
-  routes: "lib/routes"
-  pipes: "lib/pipes"
+  root: app.dart
+  components: components
+  directives: directives
+  services: services
+  routes: routes
+  pipes: pipes
   sass: false
   less: false
   ''';

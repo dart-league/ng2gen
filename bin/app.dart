@@ -1,4 +1,5 @@
 /**
+ *
  * Created by lejard_h on 06/05/16.
  */
 
@@ -46,7 +47,7 @@ class Angular2Gen extends DefaultGenerator {
     }
 
    Future generateProject() {
-     Map vars = {
+     var vars = {
        'projectName': projectName
      };
 
@@ -57,7 +58,7 @@ class Angular2Gen extends DefaultGenerator {
      });
    }
 
-    String getInstallInstructions() => "Hint: cd $projectName &&  grind --help";
+    String getInstallInstructions() => "Hint: cd $projectName";
 }
 
 
@@ -89,7 +90,7 @@ main(List<String> args) async {
     await generateApplication(name);
     await pubGet();
 
-    output('Hint: cd $name &&  grind --help\n', Color.gray);
+    output('Hint: cd $name\n', Color.gray);
 
     return 0;
 }
