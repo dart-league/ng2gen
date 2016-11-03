@@ -1,4 +1,4 @@
-## 0.2.0
+## 0.2.1
 * specify file extension in config file:
     - css_extension: css
     - html_extension: html
