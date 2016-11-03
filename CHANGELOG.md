@@ -1,4 +1,9 @@
 ## 0.2.0
+* specify file extension in config file:
+    - css_extension: css
+    - html_extension: html
+
+## 0.2.0
 * Add `init` command to create a config file inside an existing project
 * Update `Angular2`
 * move all libraries export to `lib/`

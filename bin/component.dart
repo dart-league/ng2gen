@@ -19,8 +19,8 @@ main(List<String> args) async {
   String filePath = '$prefix$path/${toTableName(name)}';
 
   String dartPath = '$filePath.dart';
-  String htmlPath = '$filePath.html';
-  String cssPath = '$filePath.${config.styleFileType}';
+  String htmlPath = '$filePath.${config.htmlExtension}';
+  String cssPath = '$filePath.${config.cssExtension}';
 
   await writeInFile(dartPath, componentTemplateDart(name));
   await writeInFile(htmlPath, componentTemplateHtml(name));

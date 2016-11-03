@@ -4,7 +4,6 @@ import 'package:yaml/yaml.dart';
 const String config_file_name = "generator.config.yaml";
 
 class Ng2GenConfigs {
-
   static Map _config;
 
   Ng2GenConfigs() {
@@ -17,9 +16,7 @@ class Ng2GenConfigs {
   }
 
   _getConfig(String configName) =>
-      (_config != null && _config.containsKey("project"))
-          ?  _config["project"][configName]
-          : null;
+      (_config != null && _config.containsKey("project")) ? _config["project"][configName] : null;
 
   String get projectName => _getConfig('name');
 
@@ -31,23 +28,28 @@ class Ng2GenConfigs {
 
   String get servicesPath => _getConfig("services");
 
-  String get pipesPath  => _getConfig("pipes");
+  String get pipesPath => _getConfig("pipes");
 
-  String get routesPath  => _getConfig("routes");
+  String get routesPath => _getConfig("routes");
 
-  String get directivesPath  => _getConfig("directives");
-
-  String get modelsPath => _getConfig("models");
+  String get directivesPath => _getConfig("directives");
 
   String get rootPath => _getConfig("root");
 
-  String get styleFileType {
-    if (_getConfig('useSass') == true) {
-      return "scss";
-    } else if (_getConfig('useLess') == true) {
-      return "less";
-    }
-    return "css";
-  }
+  String get cssExtension => _getConfig("css_extension") ?? "css";
 
+  String get htmlExtension => _getConfig("html_extension") ?? "html";
+
+  static Map<String, dynamic> get defaultConfigYaml => <String, dynamic>{
+    "project": <String, dynamic>{
+      "root": "app.dart",
+      "components": "components",
+      "directives": "directives",
+      "services": "services",
+      "routes": "routes",
+      "pipes": "pipes",
+      "css_extension": "css",
+      "html_extension": "html",
+    }
+  };
 }
