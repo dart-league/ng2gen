@@ -14,7 +14,7 @@ dependencies:
   dart_style: "^0.2.2"
   resource: "^1.1.0"
   stagehand: ^1.0.8
-  yamlicious: 0.0.4
+  yamlicious: ^0.0.4
 
 dev_dependencies:
   grinder: any
