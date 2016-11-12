@@ -1,13 +1,9 @@
-project:
-  root: "app.dart"
+project: 
   components: "components"
+  css_extension: "css"
   directives: "directives"
-  services: "services"
-  routes: "routes"
+  html_extension: "html"
   pipes: "pipes"
-  sass: false
-  less: false
-
-server:
-  hostname: "0.0.0.0"
-  port: 1337
+  root: "app.dart"
+  routes: "routes"
+  services: "services"
