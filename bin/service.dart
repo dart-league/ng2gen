@@ -22,7 +22,7 @@ main(List<String> args) async {
   await writeInFile(dartPath, serviceTemplate(name));
 
   if (lib != null) {
-    addToLibrary("$path/${toTableName(name)}", lib);
+    addToLibrary("$path/${toTableName(name)}.dart", lib);
   }
 
 }
@@ -32,9 +32,9 @@ String serviceTemplate(String name) =>
 import "package:angular2/core.dart";
 
 @Injectable()
-class ${toUpperCamelCase(name)}Service {
+class ${toUpperCamelCase(name)} {
 
-  ${toUpperCamelCase(name)}Service();
+  ${toUpperCamelCase(name)}();
 
 }
 ''';
