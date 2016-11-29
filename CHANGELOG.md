@@ -1,3 +1,6 @@
+## 0.2.1+1
+* small fix on service generation
+
 ## 0.2.1
 * specify file extension in config file:
     - css_extension: css
