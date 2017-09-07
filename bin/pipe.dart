@@ -12,7 +12,7 @@ main(List<String> args) async {
 
   if (config?.pipesPath != null) {
     path = "${config.pipesPath}";
-    lib = "lib/pipes.dart";
+    lib = config.usePipesFile ? "lib/pipes.dart" : null;
   }
 
   String prefix =  config?.pipesPath != null ? "lib/" : "";
@@ -28,7 +28,7 @@ main(List<String> args) async {
 }
 
 String pipeTemplate(String name) => '''
-import "package:angular2/core.dart";
+import "package:angular/angular.dart";
 
 @Pipe(
   name: '${toLowerCamelCase(name)}'

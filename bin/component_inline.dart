@@ -12,7 +12,7 @@ main(List<String> args) async {
 
   if (config?.componentsPath != null) {
     path = "${config.componentsPath}/${toTableName(name)}";
-    lib = "lib/components.dart";
+    lib = config.useComponentsFile ? "lib/components.dart" : null;
   }
 
   String prefix =  config?.componentsPath != null ? "lib/" : "";
@@ -31,7 +31,7 @@ main(List<String> args) async {
 }
 
 String componentTemplateDart(String name) =>
-    '''import 'package:angular2/core.dart';
+    '''import 'package:angular/angular.dart';
 
 @Component(
   selector: '${toPolyName(name)}',
@@ -40,7 +40,7 @@ String componentTemplateDart(String name) =>
           ${toPolyName(name)} works!
         </p>
         \'\'\',
-  styleUrls: const <String>['${toTableName(name)}.css'])
+  styleUrls: const ['${toTableName(name)}.css'])
 class ${toUpperCamelCase(name)} implements OnInit {
 
   ${toUpperCamelCase(name)}();

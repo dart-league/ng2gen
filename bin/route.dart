@@ -16,7 +16,7 @@ main(List<String> args) async {
 
   if (config?.routesPath != null) {
     path = "${config.routesPath}/${toTableName(name)}";
-    lib = "lib/routes.dart";
+    lib = config.useRoutesFile ? "lib/routes.dart" : null;
   }
 
   String prefix = config?.routesPath != null ? "lib/" : "";
@@ -26,30 +26,24 @@ main(List<String> args) async {
   String htmlPath = '$filePath.${config.htmlExtension}';
   String cssPath = '$filePath.${config.cssExtension}';
 
-  await writeInFile(dartPath, componentRouteTemplateDart(name, routePath));
+  await writeInFile(dartPath, componentRouteTemplateDart(name));
   await writeInFile(htmlPath, componentTemplateHtml(name));
   await createFile(cssPath);
 
   if (lib != null) {
     addToLibrary("$path/${toTableName(name)}.dart", lib);
-    addToRouteConfig(toUpperCamelCase(name), config?.rootPath);
   }
+  addToRouteConfig(toUpperCamelCase(name), config?.rootPath, routePath, dartPath);
 }
 
-String componentRouteTemplateDart(String name, String path) => '''import 'package:angular2/core.dart';
-import 'package:angular2/router.dart';
+String componentRouteTemplateDart(String name) =>
+    '''import 'package:angular/angular.dart';
 
 @Component(
   selector: '${name.replaceAll("_", "-")}',
   templateUrl: '${toTableName(name)}.html',
-  styleUrls: const <String>['${toTableName(name)}.css'])
+  styleUrls: const ['${toTableName(name)}.css'])
 class ${toUpperCamelCase(name)} implements OnInit {
-
-  static const String route_name = "${toUpperCamelCase(name)}";
-  static const String route_path = "$path";
-  static const Route route = const Route(path: ${toUpperCamelCase(name)}.route_path,
-      component: ${toUpperCamelCase(name)},
-      name: ${toUpperCamelCase(name)}.route_name);
 
   ${toUpperCamelCase(name)}();
 
@@ -59,18 +53,20 @@ class ${toUpperCamelCase(name)} implements OnInit {
 }
 ''';
 
-addToRouteConfig(String className, String rootPath) {
+addToRouteConfig(String className, String rootPath, String routePath, String dartPath) {
   File rootComponent = new File("lib/$rootPath");
 
   if (rootComponent.existsSync()) {
     String content = rootComponent.readAsStringSync();
-    content = formatter.format(content);
+    if (!config.useRoutesFile) {
+      content = "import 'package:${config.projectName}/${dartPath.replaceFirst('lib/', '')}';\n" + content;
+    }
     content = content.replaceFirst(
-        "/*Insert Routes here*/",
-        '''
-            /*Insert Routes here*/
-            $className.route,
-        ''');
+        new RegExp(r'@RouteConfig\(const\s*\['),
+        """@RouteConfig(const [
+ const Route(path: '$routePath${toPolyName(className)}',
+      component: $className,
+      name: '$className'),""");
     rootComponent.writeAsStringSync(formatter.format(content));
     output("Route Inserted into root component.\n", Color.yellow);
   }

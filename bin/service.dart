@@ -12,7 +12,7 @@ main(List<String> args) async {
 
   if (config?.servicesPath != null) {
     path = "${config.servicesPath}";
-    lib = "lib/services.dart";
+    lib = config.useServicesFile ? "lib/services.dart" : null;
   }
 
   String prefix =  config?.servicesPath != null ? "lib/" : "";
@@ -29,7 +29,7 @@ main(List<String> args) async {
 
 String serviceTemplate(String name) =>
     '''
-import "package:angular2/core.dart";
+import "package:angular/core.dart";
 
 @Injectable()
 class ${toUpperCamelCase(name)} {

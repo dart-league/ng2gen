@@ -12,7 +12,7 @@ main(List<String> args) async {
 
   if (config?.directivesPath != null) {
     path = "${config.directivesPath}";
-    lib = "lib/directives.dart";
+    lib = config.useDirectivesFile ? "lib/directives.dart" : null;
   }
 
   String prefix =  config?.directivesPath != null ? "lib/" : "";
@@ -28,10 +28,10 @@ main(List<String> args) async {
 }
 
 String directiveTemplate(String name) => '''
-import "package:angular2/core.dart";
+import "package:angular/angular.dart";
 
 @Directive(
-    selector: '[${toPolyName(name)}]'
+    selector: '[${toLowerCamelCase(name)}]'
 )
 class ${toUpperCamelCase(name)} {
 

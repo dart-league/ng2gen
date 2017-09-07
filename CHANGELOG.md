@@ -1,3 +1,8 @@
+## 0.3.0
+
+* remove app generator
+* upgrade to angular 4
+
 ## 0.2.1+1
 * small fix on service generation
 

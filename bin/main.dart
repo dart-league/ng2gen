@@ -4,7 +4,6 @@ import 'component.dart' as component;
 import 'directive.dart' as directive;
 import 'service.dart' as service;
 import 'pipe.dart' as pipe;
-import 'app.dart' as app;
 import 'component_inline.dart' as component_inline;
 import 'route.dart' as route;
 import 'init.dart' as init;
@@ -41,10 +40,6 @@ main(List<String> args) {
       _showHelp(args, 2);
       route.main(args.getRange(1, args.length).toList());
       break;
-    case 'new':
-     _showHelp(args, 1);
-      app.main(args.getRange(1, args.length).toList());
-      break;
     case '--help':
     case '-h':
     default:
@@ -57,7 +52,6 @@ void _showHelp([List<String> args, int index]) {
     print('''
 USAGE:
   -h, --help                        :   shows this content.
-  new <app_name>                    :   create a new Angular2 application.
   component <component_name>        :   create a new folder with the name of component.
   component_inline <component_name> :   create a new folder with the name of component but without html file.
   directive <directive_name>        :   create a new directive.
